@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="edtviewcolor">#0F0F0E</color>
+
+
+    <color name="background">#7AFFFFFF</color>
+    <color name="foodlogocolor">#067706</color>
+    <color name="startcolorgradient">#443C20</color>
+    <color name="endcolorgradient">#e8a564</color>
+    <color name="fbcolor">#127DDB</color>
+    <color name="tintlogcolor">#AC7A4A</color>
+    <color name="googlecolor">#E8641D</color>
+</resources>

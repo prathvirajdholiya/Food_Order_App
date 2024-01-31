@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Food Order Online</string>
+    <string name="login">LogIn</string>
+</resources>
