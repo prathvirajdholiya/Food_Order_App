@@ -1,9 +1,15 @@
 package com.example.foodorderonline;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +19,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.BeginSignInResult;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.identity.SignInCredential;
+
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +36,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUp_Activity extends AppCompatActivity {
 
+    private SignInClient oneTapClient;
+    private BeginSignInRequest signUpRequest;
+
+    // google log in
+  //  private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
+   // private boolean showOneTapUI = true;
 
 
     TextView loginalready,fbtext,googletext;
@@ -41,27 +62,82 @@ public class SignUp_Activity extends AppCompatActivity {
         }
     }
 
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        mAuth = FirebaseAuth.getInstance();
-
-
 
 
         // find id
+        mAuth = FirebaseAuth.getInstance();
         loginalready = findViewById(R.id.loginalready);
-        fbtext = findViewById(R.id.fbtext);
         googletext = findViewById(R.id.googletext);
-        //editTextName = findViewById(R.id.editTextName);
-       // editTextPhone = findViewById(R.id.editTextPhone);
+        fbtext = findViewById(R.id.fbtext);
         editTextTextEmailAddress = findViewById(R.id.editTextTextEmailAddress);
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         btnsignup = findViewById(R.id.btnsignup);
+
+        // google sign up-----------------------------------------------------------------------
+        oneTapClient = Identity.getSignInClient(this);
+        signUpRequest = BeginSignInRequest.builder()
+                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                        .setSupported(true)
+                        // Your server's client ID, not your Android client ID.
+                        .setServerClientId(getString(R.string.web_client_id))
+                        // Show all accounts on the device.
+                        .setFilterByAuthorizedAccounts(false)
+                        .build())
+                .build();
+
+        ActivityResultLauncher<IntentSenderRequest> activityResultLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartIntentSenderForResult(),
+                        new ActivityResultCallback<ActivityResult>() {
+                            @Override
+                            public void onActivityResult(ActivityResult o) {
+                                ActivityResult result = null;
+                                if (result.getResultCode() == Activity.RESULT_OK){
+
+                                    try {
+                                        SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(result.getData());
+                                        String idToken = credential.getGoogleIdToken();
+                                        if (idToken !=  null) {
+                                          String editTextTextEmailAddress = credential.getId();
+                                            Toast.makeText(getApplicationContext(), "Email"+editTextTextEmailAddress, Toast.LENGTH_SHORT).show();
+
+
+                                        }
+                                    } catch (ApiException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        });
+        googletext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oneTapClient.beginSignIn(signUpRequest)
+                        .addOnSuccessListener(SignUp_Activity.this, new OnSuccessListener<BeginSignInResult>() {
+                            @Override
+                            public void onSuccess(BeginSignInResult result) {
+                                IntentSenderRequest intentSenderRequest =
+                                        new IntentSenderRequest.Builder(result.getPendingIntent().getIntentSender()).build();
+                                activityResultLauncher.launch(intentSenderRequest);
+
+                            }
+                        })
+                        .addOnFailureListener(SignUp_Activity.this, new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // No Google Accounts found. Just continue presenting the signed-out UI.
+                                Log.d("TAG", e.getLocalizedMessage());
+                            }
+                        });
+            }
+        });
+
+
+
 
 
         loginalready.setOnClickListener(new View.OnClickListener() {
@@ -75,16 +151,14 @@ public class SignUp_Activity extends AppCompatActivity {
         btnsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // String username = editTextName.getText().toString();
 
-               // String phone = editTextPhone.getText().toString();
-
-                String email = editTextTextEmailAddress.getText().toString();
+                    String email, password;
+                 email = editTextTextEmailAddress.getText().toString();
                 //set condition
                 if (email.trim().equals("")){
                     editTextTextEmailAddress.setError("Email is Required!!");
                 }
-                String password = editTextTextPassword.getText().toString();
+               password = editTextTextPassword.getText().toString();
                 if (password.trim().equals("")){
                     editTextTextPassword.setError("Password is Compulsory !!!");
                 }
@@ -115,7 +189,7 @@ public class SignUp_Activity extends AppCompatActivity {
 
 
 
-
-
     }
+
+
 }

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Food Order Online</string>
     <string name="login">LogIn</string>
+
+    <string name="web_client_id">572165029610-ce8s4nqdodpmsscsh63d047bkvirl7l6.
+apps.googleusercontent.com</string>
 </resources>

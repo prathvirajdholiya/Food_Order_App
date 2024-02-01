@@ -51,6 +51,9 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth:22.3.1")
 
+    // google sign in
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
 
 
     // Also add the dependency for the Google Play services library and specify its version

@@ -1,17 +1,24 @@
 package com.example.foodorderonline;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 import com.google.android.gms.tasks.OnCompleteListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +28,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInActivity extends AppCompatActivity {
 
 
-TextView registr,signin;
-EditText editTextTextPassword,EmailEditText;
+
+
+    TextView registr;
+    EditText editTextTextPassword, EmailEditText;
+    Button Log_in_btn;
     FirebaseAuth mAuth;
 
     @Override
@@ -30,7 +40,7 @@ EditText editTextTextPassword,EmailEditText;
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             Intent intent = new Intent(getApplicationContext(), AppDataActivity.class);
             startActivity(intent);
             finish();
@@ -46,9 +56,9 @@ EditText editTextTextPassword,EmailEditText;
 
         mAuth = FirebaseAuth.getInstance();
         registr = findViewById(R.id.loginalready);
-       signin = findViewById(R.id.signin);
         EmailEditText = findViewById(R.id.EmailEditText);
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
+        Log_in_btn = findViewById(R.id.Log_in_btn);
 
 
 
@@ -61,20 +71,23 @@ EditText editTextTextPassword,EmailEditText;
 
         });
 
-       signin.setOnClickListener(new View.OnClickListener() {
+        Log_in_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = EmailEditText.getText().toString();
+
+
+                String email,password;
+               email = EmailEditText.getText().toString();
                 //set condition
-                if (email.trim().equals("")){
+                if (email.trim().equals("")) {
                     EmailEditText.setError("Email is Required!!");
                 }
-                String password = editTextTextPassword.getText().toString();
-                if (password.trim().equals("")){
+                password = editTextTextPassword.getText().toString();
+                if (password.trim().equals("")) {
                     editTextTextPassword.setError("Password is Compulsory !!!");
                 }
                 mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
@@ -99,6 +112,9 @@ EditText editTextTextPassword,EmailEditText;
         });
 
 
-    }
-}
+
+
+                                           }
+                                       }
+
 

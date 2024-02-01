@@ -6,10 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         // find id
         login_btn = findViewById(R.id.login_btn);
-        sign_up_btn = findViewById(R.id.sign_up_btn);
+        sign_up_btn = findViewById(R.id.Log_in_btn);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override

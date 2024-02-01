@@ -82,7 +82,7 @@
                     android:padding="10dp" />
 
                 <Button
-                    android:id="@+id/sign_up_btn"
+                    android:id="@+id/Log_in_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -146,7 +146,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/signin"
+                        android:id="@+id/googlelogin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"

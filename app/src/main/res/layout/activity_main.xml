@@ -63,7 +63,7 @@
                 app:tint="@color/foodlogocolor" />
 
             <Button
-                android:id="@+id/sign_up_btn"
+                android:id="@+id/Log_in_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
@@ -84,9 +84,9 @@
                 android:text="Skip"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/sign_up_btn"
-                app:layout_constraintStart_toStartOf="@+id/sign_up_btn"
-                app:layout_constraintTop_toBottomOf="@+id/sign_up_btn" />
+                app:layout_constraintEnd_toEndOf="@+id/Log_in_btn"
+                app:layout_constraintStart_toStartOf="@+id/Log_in_btn"
+                app:layout_constraintTop_toBottomOf="@+id/Log_in_btn" />
 
             <TextView
                 android:id="@+id/textView2"
