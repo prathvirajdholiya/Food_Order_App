@@ -4,11 +4,9 @@
     <stroke
         android:color="@color/edtviewcolor"
         android:width="2dp"
-
         />
     <corners
         android:radius="8dp"
-
         />
 
 </shape>

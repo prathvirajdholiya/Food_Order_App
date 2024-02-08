@@ -30,7 +30,7 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
-    TextView registr;
+    TextView registr,forgetTxt;
     EditText editTextTextPassword, EmailEditText;
     Button Log_in_btn;
     FirebaseAuth mAuth;
@@ -59,6 +59,7 @@ public class SignInActivity extends AppCompatActivity {
         EmailEditText = findViewById(R.id.EmailEditText);
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         Log_in_btn = findViewById(R.id.Log_in_btn);
+        forgetTxt = findViewById(R.id.forgetTxt);
 
 
 
@@ -69,6 +70,15 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(intent);
             }
 
+        });
+
+        forgetTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this,forgetPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }
         });
 
         Log_in_btn.setOnClickListener(new View.OnClickListener() {

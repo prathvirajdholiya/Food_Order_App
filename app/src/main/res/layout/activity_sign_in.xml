@@ -73,13 +73,23 @@
                     android:id="@+id/editTextTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:background="@drawable/custom_input_text"
                     android:ems="10"
                     android:hint="*******"
                     android:inputType="textPassword"
                     android:minHeight="48dp"
                     android:padding="10dp" />
+                <TextView
+                    android:id="@+id/forgetTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Forget Password?"
+                    android:textColor="#E41212"
+                    android:layout_marginTop="8dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginStart="180dp"
+                    />
 
                 <Button
                     android:id="@+id/Log_in_btn"
